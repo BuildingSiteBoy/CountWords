@@ -6,6 +6,8 @@ import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
  *
@@ -23,8 +25,10 @@ public class AdminUser implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "账户不能为空")
     private String username;
 
+    @NotBlank(message = "密码不能为空")
     private String password;
 
     private String name;

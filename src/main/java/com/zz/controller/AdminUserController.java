@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
@@ -31,9 +32,8 @@ public class AdminUserController {
     AdminUserService userService;
 
     @ApiOperation("用户登录")
-    @CrossOrigin
     @PostMapping("/login")
-    public Result login(@ApiParam("用户")@RequestBody AdminUser requestUser) {
+    public Result login(@ApiParam("用户")@Validated @RequestBody AdminUser requestUser) {
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
 
