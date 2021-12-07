@@ -8,11 +8,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author zZeng
- * @since 2021-11-25
+ * @since 2021-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,11 +28,9 @@ public class AdminPerms implements Serializable {
 
     private String name;
 
-    private String level;
+    private String nameZh;
 
     private String path;
-
-    private Boolean enable;
 
 
 }

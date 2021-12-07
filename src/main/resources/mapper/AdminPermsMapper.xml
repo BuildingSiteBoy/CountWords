@@ -6,14 +6,13 @@
     <resultMap id="BaseResultMap" type="com.zz.entity.AdminPerms">
         <id column="id" property="id" />
         <result column="name" property="name" />
-        <result column="level" property="level" />
+        <result column="name_zh" property="nameZh" />
         <result column="path" property="path" />
-        <result column="enable" property="enable" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, level, path, enable
+        id, name, name_zh, path
     </sql>
 
 </mapper>

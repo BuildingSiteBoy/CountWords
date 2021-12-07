@@ -1,13 +1,21 @@
 package com.zz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zz.entity.AdminRole;
 import com.zz.entity.AdminUser;
 import com.zz.mapper.AdminUserMapper;
+import com.zz.service.AdminRoleService;
+import com.zz.service.AdminUserRoleService;
 import com.zz.service.AdminUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,10 +25,32 @@ import org.springframework.web.util.HtmlUtils;
  * @author zZeng
  * @since 2021-11-25
  */
+@Slf4j
 @Service
 public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser> implements AdminUserService {
     @Autowired
+    AdminRoleService roleService;
+    @Autowired
     AdminUserMapper adminUserMapper;
+    @Autowired
+    AdminUserRoleService userRoleService;
+
+    @Override
+    public List<AdminUser> listWithRoles() {
+        List<AdminUser> users = list();
+        users.forEach(user -> {
+            List<AdminRole> roles = roleService.listRolesByUsername(user.getUsername());
+            user.setRoles(roles);
+        });
+        return users;
+    }
+
+    @Override
+    public String getPassword(String username) {
+        AdminUser user = getByName(username);
+
+        return null == user ? null : user.getPassword();
+    }
 
     @Override
     public AdminUser getByName(String username) {
@@ -41,6 +71,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
     @Override
     public int register(AdminUser user) {
         if (null != getByName(user.getUsername())) {
+            log.info("错误：该用户已存在");
             return 2;
         }
 
@@ -64,8 +95,41 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         }
 
         //用户名不为空、且存在，默认生产16位盐
-        //String salt = new SecureRandomNumberG
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        int times  = 2;
+        String encodedPassword = new SimpleHash("md5", password, salt, times).toString();
 
+        user.setSalt(salt);
+        user.setPassword(encodedPassword);
+
+        adminUserMapper.insert(user);
+        log.info("注册成功");
         return 1;
+    }
+
+    @Override
+    public AdminUser resetPassword(AdminUser user) {
+        AdminUser userIn = getByName(user.getUsername());
+
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        int times = 2;
+        String encodePassword = new SimpleHash("md5", user.getPassword(), salt, times).toString();
+
+        userIn.setSalt(salt);
+        userIn.setPassword(encodePassword);
+
+        adminUserMapper.updateById(userIn);
+        return userIn;
+    }
+
+    @Override
+    public void editUser(AdminUser user) {
+        AdminUser userIn = getByName(user.getUsername());
+        userIn.setName(user.getName());
+        userIn.setEmail(user.getEmail());
+        userIn.setBirth(user.getBirth());
+        adminUserMapper.updateById(userIn);
+
+        userRoleService.saveRoleChanges(userIn.getId(), user.getRoles());
     }
 }

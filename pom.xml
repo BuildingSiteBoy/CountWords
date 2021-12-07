@@ -24,6 +24,20 @@
 
     <dependencies>
 
+        <!--commons-lang-->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <!--shiro-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+
         <!--swagger3.0-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -37,14 +51,6 @@
             <artifactId>druid</artifactId>
             <version>1.2.6</version>
         </dependency>
-
-        <!--shiro-redis-->
-        <dependency>
-            <groupId>org.crazycake</groupId>
-            <artifactId>shiro-redis-spring-boot-starter</artifactId>
-            <version>3.3.1</version>
-        </dependency>
-
 
         <!--springboot validation: 实体校验-->
         <dependency>

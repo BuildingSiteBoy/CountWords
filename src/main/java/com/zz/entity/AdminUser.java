@@ -1,8 +1,11 @@
 package com.zz.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -39,5 +42,9 @@ public class AdminUser implements Serializable {
 
     private String email;
 
-
+    /**
+     * 用户存储用户角色的临时属性
+     */
+    @TableField(exist = false)
+    private List<AdminRole> roles;
 }
