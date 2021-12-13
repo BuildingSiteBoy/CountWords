@@ -1,5 +1,6 @@
 package com.zz.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 /**
  * @author zz
  */
+@EnableKnife4j
 @Configuration
 @EnableOpenApi
 public class SwaggerConfig {

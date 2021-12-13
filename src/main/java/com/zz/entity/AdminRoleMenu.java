@@ -1,44 +1,37 @@
 package com.zz.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
-import java.util.List;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author zZeng
- * @since 2021-11-25
+ * @since 2021-12-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class AdminRole implements Serializable {
+public class AdminRoleMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 角色id
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
-    private String name;
-
-    private String nameZh;
-
-    private Boolean enable;
+    private Integer rid;
 
     /**
-     * 用于存储用户权限的临时属性
-     * */
-    @TableField(exist = false)
-    private List<AdminPerms> perms;
+     * 菜单id
+     */
+    private Integer mid;
+
+
 }

@@ -53,9 +53,8 @@ public interface AdminUserService extends IService<AdminUser> {
     /**
      * 更新密码
      * @param user：用户信息
-     * @return user
      */
-    AdminUser resetPassword(AdminUser user);
+    void resetPassword(AdminUser user);
 
     /**
      * 编辑用户

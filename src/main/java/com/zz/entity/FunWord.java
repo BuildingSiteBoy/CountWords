@@ -8,11 +8,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author zZeng
- * @since 2021-11-25
+ * @since 2021-12-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,15 +26,40 @@ public class FunWord implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String name;
+    /**
+     * 难度等级
+     */
+    private Integer grade;
 
+    /**
+     * 单词
+     */
+    private String word;
+
+    /**
+     * 读音
+     */
     private String audio;
 
-    private String explain;
+    /**
+     * 词性
+     */
+    private String part;
 
+    /**
+     * 词义
+     */
+    private String means;
+
+    /**
+     * 例句
+     */
     private String example;
 
-    private Integer grade;
+    /**
+     * 解释
+     */
+    private String trans;
 
     /**
      * 是否学习

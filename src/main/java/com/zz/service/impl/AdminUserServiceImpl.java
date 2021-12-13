@@ -108,7 +108,7 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
     }
 
     @Override
-    public AdminUser resetPassword(AdminUser user) {
+    public void resetPassword(AdminUser user) {
         AdminUser userIn = getByName(user.getUsername());
 
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
@@ -119,7 +119,6 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         userIn.setPassword(encodePassword);
 
         adminUserMapper.updateById(userIn);
-        return userIn;
     }
 
     @Override

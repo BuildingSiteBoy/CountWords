@@ -1,6 +1,6 @@
 package com.zz.mapper;
 
-import com.zz.entity.FunWord;
+import com.zz.entity.AdminRoleMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @since 2021-12-10
  */
 @Repository
-public interface FunWordMapper extends BaseMapper<FunWord> {
+public interface AdminRoleMenuMapper extends BaseMapper<AdminRoleMenu> {
 
 }

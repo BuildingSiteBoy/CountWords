@@ -3,12 +3,14 @@ package com.zz.common.utils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zz
  * URLPathMatchingFilter没有被声明@Bean，即没被spirng管理，所以@Aurowride无法注入
  * 使用该工具类，可以让Filter获取想要用的Service实例
  */
+@Component
 public class SpringContextUtils implements ApplicationContextAware {
 
     private static ApplicationContext context;

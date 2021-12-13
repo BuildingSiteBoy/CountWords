@@ -5,11 +5,13 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zz.entity.FunWord">
         <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="audio" property="audio" />
-        <result column="explain" property="explain" />
-        <result column="example" property="example" />
         <result column="grade" property="grade" />
+        <result column="word" property="word" />
+        <result column="audio" property="audio" />
+        <result column="part" property="part" />
+        <result column="means" property="means" />
+        <result column="example" property="example" />
+        <result column="trans" property="trans" />
         <result column="study" property="study" />
         <result column="remember" property="remember" />
         <result column="collection" property="collection" />
@@ -17,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, audio, explain, example, grade, study, remember, collection
+        id, grade, word, audio, part, means, example, trans, study, remember, collection
     </sql>
 
 </mapper>

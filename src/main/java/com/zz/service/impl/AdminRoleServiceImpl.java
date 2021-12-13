@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,15 +47,26 @@ public class AdminRoleServiceImpl extends ServiceImpl<AdminRoleMapper, AdminRole
     @Override
     public List<AdminRole> listRolesByUsername(String username) {
         int uid = userService.getByName(username).getId();
-        List<Integer> rids = userRoleService.listAllByUid(uid)
-                .stream().map(AdminUserRole::getRid).collect(Collectors.toList());
+        List<Integer> rids = new ArrayList<>();
+        List<AdminUserRole> userRoles = userRoleService.listAllByUid(uid);
+        for (AdminUserRole userRole : userRoles) {
+            if (userRole.getRid() == null) {
+                continue;
+            }
+                rids.add(userRole.getRid());
+        }
+
+        if (rids.size() == 0) {
+            return null;
+        }
+
         return roleMapper.selectBatchIds(rids);
     }
 
     @Override
     public AdminRole updateRoleStatus(AdminRole role) {
         AdminRole roleInDb = roleMapper.selectById(role.getId());
-        roleInDb.setEnable(role.isEnabled());
+        roleInDb.setEnable(role.getEnable());
         roleMapper.updateById(roleInDb);
         return roleInDb;
     }

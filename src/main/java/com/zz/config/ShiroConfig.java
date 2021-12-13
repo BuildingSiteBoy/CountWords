@@ -55,11 +55,11 @@ public class ShiroConfig {
 
         // 配置映射关系
         // 放鸡贼登录
-        filterChainDefinitionMap.put("/api/authentication", "authc");
+/*        filterChainDefinitionMap.put("/api/authentication", "authc");
         filterChainDefinitionMap.put("/api/admin/**", "authc");
 
         // 自定义过滤器设置3.设置过滤路径
-        filterChainDefinitionMap.put("/api/admin/**", "url");
+        filterChainDefinitionMap.put("/api/admin/**", "url");*/
 
         // 自定义过滤器设置4.启用过滤器
         bean.setFilters(customisedFilter);
