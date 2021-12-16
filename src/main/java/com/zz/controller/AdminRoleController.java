@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zZeng
  * @since 2021-11-25
  */
-@Api(value = "RoleController", tags = "角色管理操作接口")
+@Api(value = "RoleController", tags = "角色管理控制类")
 @RestController
 @RequestMapping("/api")
 public class AdminRoleController {
@@ -33,13 +33,13 @@ public class AdminRoleController {
     @Autowired
     AdminRolePermsService rolePermsService;
 
-    @ApiOperation("列出所有角色")
+    @ApiOperation("列出所有角色接口")
     @GetMapping("/admin/role")
     public Result listRoles() {
         return ResultFactory.buildSuccessResult(roleService.listWithPerms());
     }
 
-    @ApiOperation("更新角色状态")
+    @ApiOperation("更新角色状态接口")
     @PutMapping("/admin/role/status")
     public Result updateRoleStatus(@ApiParam("角色信息") @RequestBody AdminRole requestRole) {
         AdminRole role = roleService.updateRoleStatus(requestRole);
@@ -47,7 +47,7 @@ public class AdminRoleController {
         return ResultFactory.buildSuccessResult(message);
     }
 
-    @ApiOperation("修改角色信息")
+    @ApiOperation("修改角色信息接口")
     @PutMapping("/admin/role")
     public Result editRole(@ApiParam("角色信息") @RequestBody AdminRole role) {
         roleService.editRole(role);
@@ -55,20 +55,20 @@ public class AdminRoleController {
         return ResultFactory.buildSuccessResult("角色信息修改成功");
     }
 
-    @ApiOperation("添加角色")
+    @ApiOperation("添加角色接口")
     @PostMapping("/admin/role")
     public Result addRole(@ApiParam("角色信息") @RequestBody AdminRole role) {
         roleService.save(role);
         return ResultFactory.buildSuccessResult("角色添加成功");
     }
 
-    @ApiOperation("列出权限")
+    @ApiOperation("列出权限接口")
     @GetMapping("/admin/role/perm")
     public Result listPerms() {
         return ResultFactory.buildSuccessResult(permsService.list());
     }
 
-    @ApiOperation("删除角色信息")
+    @ApiOperation("删除角色信息接口")
     @DeleteMapping("/admin/role/delete")
     public Result deleteRole(@ApiParam("角色信息") @RequestBody AdminRole role) {
         roleService.removeById(role.getId());

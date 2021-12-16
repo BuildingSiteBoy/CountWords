@@ -35,4 +35,18 @@ public interface FunWordService extends IService<FunWord> {
      * @return list
      */
     List<FunWord> listLikeByGrade(int grade);
+
+    /**
+     * 根据单词名判断单词是否存在
+     * @param word 单词
+     * @return true: 存在 false: 不存在
+     */
+    boolean isExistByWord(String word);
+
+    /**
+     * 插入单词
+     * @param word 被插入的单词
+     * @return 0：单词已存在 1：插入成功 2：插入失败
+     */
+    int insertWord(FunWord word);
 }

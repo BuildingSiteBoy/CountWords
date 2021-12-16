@@ -44,4 +44,24 @@ public class FunWordServiceImpl extends ServiceImpl<FunWordMapper, FunWord> impl
                 new QueryWrapper<FunWord>().eq("grade", grade)
         );
     }
+
+    @Override
+    public boolean isExistByWord(String word) {
+        return null != wordMapper.selectOne(
+                new QueryWrapper<FunWord>().eq("word", word)
+        );
+    }
+
+    @Override
+    public int insertWord(FunWord word) {
+        if (isExistByWord(word.getWord())) {
+            return 0;
+        } else {
+            if (wordMapper.insert(word) == 1) {
+                return 1;
+            } else {
+                return 2;
+            }
+        }
+    }
 }

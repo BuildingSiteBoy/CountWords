@@ -52,8 +52,9 @@ public class AdminRoleServiceImpl extends ServiceImpl<AdminRoleMapper, AdminRole
         for (AdminUserRole userRole : userRoles) {
             if (userRole.getRid() == null) {
                 continue;
-            }
+            } else {
                 rids.add(userRole.getRid());
+            }
         }
 
         if (rids.size() == 0) {

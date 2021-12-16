@@ -1,6 +1,9 @@
 package com.zz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zz.common.myPage.UserPage;
 import com.zz.entity.AdminRole;
 import com.zz.entity.AdminUser;
 import com.zz.mapper.AdminUserMapper;
@@ -43,6 +46,26 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
             user.setRoles(roles);
         });
         return users;
+    }
+
+    @Override
+    public UserPage listPageWithRoles(int size, int page) {
+        //IPage<AdminUser> userPage = new Page<>(page, size);
+        //IPage<AdminUser> iPage = page(userPage);
+        IPage<AdminUser> iPage = page(new Page<>(page, size));
+        List<AdminUser> users = iPage.getRecords();
+
+        users.forEach(user -> {
+            List<AdminRole> roles = roleService.listRolesByUsername(user.getUsername());
+            user.setRoles(roles);
+        });
+
+        UserPage userPage = new UserPage();
+        userPage.setPages((int)iPage.getPages());
+        userPage.setTotal((int)iPage.getTotal());
+        userPage.setUsers(users);
+
+        return userPage;
     }
 
     @Override
@@ -129,6 +152,8 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         userIn.setBirth(user.getBirth());
         adminUserMapper.updateById(userIn);
 
-        userRoleService.saveRoleChanges(userIn.getId(), user.getRoles());
+        if (user.getRoles() != null) {
+            userRoleService.saveRoleChanges(userIn.getId(), user.getRoles());
+        }
     }
 }

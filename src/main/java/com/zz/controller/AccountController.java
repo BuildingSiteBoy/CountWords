@@ -28,14 +28,14 @@ import org.springframework.web.util.HtmlUtils;
  * @since 2021-11-25
  */
 @Slf4j
-@Api(value = "LoginController", tags = "登录登出注册操作接口")
+@Api(value = "LoginController", tags = "登录登出注册控制类")
 @RestController
 @RequestMapping("/api")
 public class AccountController {
     @Autowired
     AdminUserService userService;
 
-    @ApiOperation("用户登录")
+    @ApiOperation("用户登录接口")
     @PostMapping("/login")
     public Result login(@ApiParam("用户账号密码") @Validated @RequestBody LoginDto requestUser) {
         // 对html标签进行转义，防止xss攻击
@@ -62,7 +62,7 @@ public class AccountController {
         }
     }
 
-    @ApiOperation("用户注册")
+    @ApiOperation("用户注册接口")
     @PostMapping("/register")
     public Result register(@ApiParam("用户注册信息") @Validated @RequestBody AdminUser user) {
         int status = userService.register(user);
@@ -75,11 +75,11 @@ public class AccountController {
             case 2:
                 return ResultFactory.buildFailResult("错误：该用户已存在");
             default:
-                return ResultFactory.buildFailResult("错误：位置错误");
+                return ResultFactory.buildFailResult("错误：未知错误");
         }
     }
 
-    @ApiOperation("用户登出")
+    @ApiOperation("用户登出接口")
     @GetMapping("/logout")
     public Result logout() {
         Subject subject = SecurityUtils.getSubject();
@@ -87,7 +87,7 @@ public class AccountController {
         return ResultFactory.buildSuccessResult("登出成功，期待您的下次访问");
     }
 
-    @ApiOperation("身份认证测试方法")
+    @ApiOperation("身份认证测试方法接口")
     @GetMapping("/authentication")
     public String authentication() {
         return "身份认证成功";

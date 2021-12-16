@@ -55,8 +55,20 @@ public class AdminPermsServiceImpl extends ServiceImpl<AdminPermsMapper, AdminPe
 
     @Override
     public List<AdminPerms> listPermsByRid(int rid) {
-        List<Integer> pIds = rolePermsService.listAllByRid(rid)
-                .stream().map(AdminRolePerms::getPid).collect(Collectors.toList());
+        List<Integer> pIds = new ArrayList<>();
+        List<AdminRolePerms> rolePerms = rolePermsService.listAllByRid(rid);
+        for (AdminRolePerms rolePerm : rolePerms) {
+            if (rolePerm.getPid() == null) {
+                continue;
+            } else {
+                pIds.add(rolePerm.getPid());
+            }
+        }
+
+        if (pIds.size() == 0) {
+            return null;
+        }
+
         return permsMapper.selectBatchIds(pIds);
     }
 

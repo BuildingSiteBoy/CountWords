@@ -6,13 +6,13 @@
     <resultMap id="BaseResultMap" type="com.zz.entity.FunSentence">
         <id column="id" property="id" />
         <result column="content" property="content" />
-        <result column="explain" property="explain" />
+        <result column="trans" property="trans" />
         <result column="listen" property="listen" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, content, explain, listen
+        id, content, trans, listen
     </sql>
 
 </mapper>

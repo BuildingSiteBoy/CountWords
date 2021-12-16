@@ -1,5 +1,6 @@
 package com.zz.service;
 
+import com.zz.common.myPage.UserPage;
 import com.zz.entity.AdminUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -20,6 +21,14 @@ public interface AdminUserService extends IService<AdminUser> {
      * @return list
      */
     List<AdminUser> listWithRoles();
+
+    /**
+     * 用户的分页查询
+     * @param size 页面大小
+     * @param page 当前页
+     * @return list
+     */
+    UserPage listPageWithRoles(int size, int page);
 
     /**
      * 通过用户名获取密码

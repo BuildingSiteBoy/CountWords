@@ -8,11 +8,11 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author zZeng
- * @since 2021-11-25
+ * @since 2021-12-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,7 +28,7 @@ public class FunSentence implements Serializable {
 
     private String content;
 
-    private String explain;
+    private String trans;
 
     private Integer listen;
 
