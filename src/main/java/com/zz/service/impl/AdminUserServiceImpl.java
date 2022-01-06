@@ -3,7 +3,7 @@ package com.zz.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zz.common.myPage.UserPage;
+import com.zz.common.myEntity.UserPage;
 import com.zz.entity.AdminRole;
 import com.zz.entity.AdminUser;
 import com.zz.mapper.AdminUserMapper;

@@ -1,6 +1,11 @@
 package com.zz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zz.common.myEntity.BookPage;
+import com.zz.common.myEntity.SentencePage;
+import com.zz.entity.FunBook;
 import com.zz.entity.FunSentence;
 import com.zz.mapper.FunSentenceMapper;
 import com.zz.service.FunSentenceService;
@@ -25,9 +30,21 @@ public class FunSentenceServiceImpl extends ServiceImpl<FunSentenceMapper, FunSe
     FunSentenceMapper sentenceMapper;
 
     @Override
+    public SentencePage listSentencesByPage(int size, int page) {
+        IPage<FunSentence> iPage = page(new Page<>(page, size));
+
+        SentencePage sentencePage = new SentencePage();
+        sentencePage.setPages((int)iPage.getPages());
+        sentencePage.setTotal((int)iPage.getTotal());
+        sentencePage.setSentences(iPage.getRecords());
+
+        return sentencePage;
+    }
+
+    @Override
     public FunSentence getOneSentence() {
         int count = count();
-        int randId = new Random().nextInt(count) + 1;
+        int randId = 11 + 1;
         return sentenceMapper.selectById(randId);
     }
 

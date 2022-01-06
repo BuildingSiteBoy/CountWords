@@ -1,6 +1,9 @@
 package com.zz.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zz.common.myEntity.BookPage;
 import com.zz.entity.FunBook;
 import com.zz.mapper.FunBookMapper;
 import com.zz.service.FunBookService;
@@ -22,6 +25,18 @@ import java.util.List;
 public class FunBookServiceImpl extends ServiceImpl<FunBookMapper, FunBook> implements FunBookService {
     @Autowired
     FunBookMapper bookMapper;
+
+    @Override
+    public BookPage listBooksByPage(int size, int page) {
+        IPage<FunBook> iPage = page(new Page<>(page, size));
+
+        BookPage bookPage = new BookPage();
+        bookPage.setPages((int)iPage.getPages());
+        bookPage.setTotal((int)iPage.getTotal());
+        bookPage.setBooks(iPage.getRecords());
+
+        return bookPage;
+    }
 
     @Override
     public List<FunBook> listLikeByTitle(String title) {

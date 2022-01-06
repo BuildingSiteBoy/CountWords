@@ -1,5 +1,7 @@
 package com.zz.service;
 
+import com.zz.common.myEntity.BookPage;
+import com.zz.common.myEntity.UserPage;
 import com.zz.entity.FunBook;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,6 +16,15 @@ import java.util.List;
  * @since 2021-11-25
  */
 public interface FunBookService extends IService<FunBook> {
+
+    /**
+     * 书籍的分页查询
+     * @param size 页面大小
+     * @param page 当前页
+     * @return page
+     */
+    BookPage listBooksByPage(int size, int page);
+
     /**
      * 通过书名模糊查询书籍
      * @param title 书名

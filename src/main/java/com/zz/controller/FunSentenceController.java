@@ -37,6 +37,13 @@ public class FunSentenceController {
         return ResultFactory.buildSuccessResult(sentenceService.list());
     }
 
+    @ApiOperation("美句分页查询接口")
+    @GetMapping("/sentences/page")
+    public Result listPageUsers(@ApiParam("页面大小")int size,
+                                @ApiParam("当前页")int page) {
+        return ResultFactory.buildSuccessResult(sentenceService.listSentencesByPage(size, page));
+    }
+
     @ApiOperation("每日一句接口")
     @GetMapping("/sentences/everyday")
     public Result getSentenceEveryday() {
@@ -75,8 +82,8 @@ public class FunSentenceController {
 
     @ApiOperation("删除美句接口")
     @DeleteMapping("/admin/content/sentence")
-    public Result deleteSentence(@ApiParam("要删除的美句id") @RequestBody int id) {
-        if (sentenceService.removeById(id)) {
+    public Result deleteSentence(@ApiParam("要删除的美句id") @RequestBody FunSentence sentence) {
+        if (sentenceService.removeById(sentence.getId())) {
             String msg = "美句删除成功";
             log.info(msg);
             return ResultFactory.buildSuccessResult(msg);

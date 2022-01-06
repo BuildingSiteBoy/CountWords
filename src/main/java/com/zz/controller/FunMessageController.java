@@ -37,6 +37,13 @@ public class FunMessageController {
         return ResultFactory.buildSuccessResult(messageService.list());
     }
 
+    @ApiOperation("留言分页查询接口")
+    @GetMapping("/message/page")
+    public Result listPageUsers(@ApiParam("页面大小")int size,
+                                @ApiParam("当前页")int page) {
+        return ResultFactory.buildSuccessResult(messageService.listMessagesByPage(size, page));
+    }
+
     @ApiOperation("添加留言接口")
     @PostMapping("/message")
     public Result addMessage(@ApiParam("要添加的留言") @RequestBody FunMessage message) {
@@ -68,8 +75,8 @@ public class FunMessageController {
 
     @ApiOperation("删除留言接口")
     @DeleteMapping("/admin/message")
-    public Result deleteMessage(@ApiParam("要删除的留言id") @RequestBody int id) {
-        if (messageService.removeById(id)) {
+    public Result deleteMessage(@ApiParam("要删除的留言id") @RequestBody FunMessage message) {
+        if (messageService.removeById(message.getId())) {
             String msg = "留言删除成功";
             log.info(msg);
             return ResultFactory.buildSuccessResult(msg);

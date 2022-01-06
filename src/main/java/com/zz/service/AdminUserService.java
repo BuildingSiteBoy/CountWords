@@ -1,6 +1,6 @@
 package com.zz.service;
 
-import com.zz.common.myPage.UserPage;
+import com.zz.common.myEntity.UserPage;
 import com.zz.entity.AdminUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 

@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
+
 /**
  * <p>
  *  书籍前端控制器
@@ -34,6 +36,20 @@ public class FunBookController {
     public Result listBooks() {
         log.info("书籍查询成功");
         return ResultFactory.buildSuccessResult(bookService.list());
+    }
+
+    @ApiOperation("书籍分页查询接口")
+    @GetMapping("/books/page")
+    public Result listPageUsers(@ApiParam("页面大小")int size,
+                                @ApiParam("当前页")int page) {
+        return ResultFactory.buildSuccessResult(bookService.listBooksByPage(size, page));
+    }
+
+    @ApiOperation("根据id查询书籍接口")
+    @GetMapping("/book")
+    public Result getBookById(@ApiParam("书籍id")int id) {
+        log.info("书籍查询成功");
+        return ResultFactory.buildSuccessResult(bookService.getById(id));
     }
 
     @ApiOperation("根据书名查询书籍接口")
@@ -97,8 +113,8 @@ public class FunBookController {
 
     @ApiOperation("删除书籍接口")
     @DeleteMapping("/admin/content/book")
-    public Result deleteBook(@ApiParam("要删除的书籍id") @RequestBody int id) {
-        if (bookService.removeById(id)) {
+    public Result deleteBook(@ApiParam("要删除的书籍id") @RequestBody FunBook book) {
+        if (bookService.removeById(book.getId())) {
             String msg = "书籍删除成功";
             log.info(msg);
             return ResultFactory.buildSuccessResult(msg);

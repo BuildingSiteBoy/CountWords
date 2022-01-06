@@ -1,4 +1,4 @@
-package com.zz.common.myPage;
+package com.zz.common.myEntity;
 
 import com.zz.entity.AdminUser;
 import lombok.Data;

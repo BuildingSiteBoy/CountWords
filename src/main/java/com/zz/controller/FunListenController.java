@@ -36,6 +36,13 @@ public class FunListenController {
         return ResultFactory.buildSuccessResult(listenService.list());
     }
 
+    @ApiOperation("听力分页查询接口")
+    @GetMapping("/listens/page")
+    public Result listPageUsers(@ApiParam("页面大小")int size,
+                                @ApiParam("当前页")int page) {
+        return ResultFactory.buildSuccessResult(listenService.listListensByPage(size, page));
+    }
+
     @ApiOperation("根据id查找听力接口")
     @GetMapping("/listens/id")
     public Result getListenById(@ApiParam("听力材料id") int id) {
@@ -74,8 +81,8 @@ public class FunListenController {
 
     @ApiOperation("删除听力接口")
     @DeleteMapping("/admin/content/listen")
-    public Result deleteListen(@ApiParam("要删除的听力id") @RequestBody int id) {
-        if (listenService.removeById(id)) {
+    public Result deleteListen(@ApiParam("要删除的听力id") @RequestBody FunListen listen) {
+        if (listenService.removeById(listen.getId())) {
             String msg = "听力删除成功";
             log.info(msg);
             return ResultFactory.buildSuccessResult(msg);

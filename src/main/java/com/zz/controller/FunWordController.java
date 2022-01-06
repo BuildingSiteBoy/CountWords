@@ -36,11 +36,27 @@ public class FunWordController {
         return ResultFactory.buildSuccessResult(funWordService.list());
     }
 
+    @ApiOperation("单词分页查询接口")
+    @GetMapping("/words/page")
+    public Result listPageUsers(@ApiParam("页面大小")int size,
+                                @ApiParam("当前页")int page) {
+        return ResultFactory.buildSuccessResult(funWordService.listWordsByPage(size, page));
+    }
+
     @ApiOperation("根据内容模糊查询接口")
     @GetMapping("/words/word")
     public Result getWordsByWord(@ApiParam("单词") String word) {
         log.info("根据内容模糊查询单词查询成功");
         return ResultFactory.buildSuccessResult(funWordService.listLikeByWord(word));
+    }
+
+    @ApiOperation("根据内容分页模糊查询接口")
+    @GetMapping("/words/word/page")
+    public Result getWordsByWordPage(@ApiParam("单词") String word,
+                                     @ApiParam("页面大小")int size,
+                                     @ApiParam("当前页")int page) {
+        log.info("根据内容分页模糊查询单词查询成功");
+        return ResultFactory.buildSuccessResult(funWordService.listLikeByWordPage(word, size, page));
     }
 
     @ApiOperation("根据词义模糊查询接口")
@@ -50,9 +66,18 @@ public class FunWordController {
         return ResultFactory.buildSuccessResult(funWordService.listLikeByMeans(means));
     }
 
+    @ApiOperation("根据词义分页模糊查询接口")
+    @GetMapping("/words/means/page")
+    public Result getWordsByMeansPage(@ApiParam("单词") String means,
+                                      @ApiParam("页面大小")int size,
+                                      @ApiParam("当前页")int page) {
+        log.info("根据词义分页模糊查询单词查询成功");
+        return ResultFactory.buildSuccessResult(funWordService.listLikeByMeansPage(means, size, page));
+    }
+
     @ApiOperation("根据等级查询单词接口")
     @GetMapping("/words/grade")
-    public Result getWordsByGrade(@ApiParam("等级") int grade) {
+    public Result getWordsByGrade(@ApiParam("等级") Integer grade) {
         log.info("根据等级查询单词查询成功");
         return ResultFactory.buildSuccessResult(funWordService.listLikeByGrade(grade));
     }
@@ -96,8 +121,8 @@ public class FunWordController {
 
     @ApiOperation("删除单词接口")
     @DeleteMapping("/admin/content/word")
-    public Result deleteWord(@ApiParam("要删除的单词id") @RequestBody int id) {
-        if (funWordService.removeById(id)) {
+    public Result deleteWord(@ApiParam("要删除的单词id") @RequestBody FunWord word) {
+        if (funWordService.removeById(word.getId())) {
             String msg = "单词删除成功";
             log.info(msg);
             return ResultFactory.buildSuccessResult(msg);
@@ -107,5 +132,7 @@ public class FunWordController {
             return ResultFactory.buildFailResult(msg);
         }
     }
+
+
 
 }

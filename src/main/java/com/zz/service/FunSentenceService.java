@@ -1,5 +1,7 @@
 package com.zz.service;
 
+import com.zz.common.myEntity.BookPage;
+import com.zz.common.myEntity.SentencePage;
 import com.zz.entity.FunSentence;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,6 +14,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-11-25
  */
 public interface FunSentenceService extends IService<FunSentence> {
+
+    /**
+     * 美句的分页查询
+     * @param size 页面大小
+     * @param page 当前页
+     * @return list
+     */
+    SentencePage listSentencesByPage(int size, int page);
 
     /**
      * 获取每日一句
