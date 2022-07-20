@@ -44,7 +44,7 @@ public class FunSentenceServiceImpl extends ServiceImpl<FunSentenceMapper, FunSe
     @Override
     public FunSentence getOneSentence() {
         int count = count();
-        int randId = 11 + 1;
+        int randId = new Random().nextInt(11) + 1;
         return sentenceMapper.selectById(randId);
     }
 
